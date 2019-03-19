@@ -1,2 +1,2 @@
 # 481FinalProject
-Contributors: Matt Manoly
+Contributors: Matt Manoly, Mason Baird
