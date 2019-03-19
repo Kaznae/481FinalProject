@@ -1,3 +1,2 @@
 # 481FinalProject
-Sinclair Fuh!!
-Contributors: Matt Manoly
+Contributors: Matt Manoly, Mason Baird, Weston King-Leatham, Mikael Yemane, Sinclair Fuh
