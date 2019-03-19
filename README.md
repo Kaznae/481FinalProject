@@ -1,2 +1,3 @@
 # 481FinalProject
-Contributors: Matt Manoly, Mason Baird, Weston King-Leatham
+Contributors: Matt Manoly, Mason Baird, Weston King-Leatham, Mikael Yemane
+
