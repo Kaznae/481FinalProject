@@ -33,7 +33,7 @@ for index, row in plants.iterrows():
         else:
             country_info[row['country_long']][row['fuel1']] += 1
 
-with open('data/allcountry100_data2014.csv', 'w') as csv_file:
+with open('data/allcountry100_data2014.csv', 'w', newline = '') as csv_file:
     writer = csv.writer(csv_file)
     for key, value in country_info.items():
        writer.writerow([key, value])
