@@ -36,7 +36,7 @@ for info in country_info:
     country_info_final.append(temp)
 
 #for info in country_info_final:
-with open('allCountryData2014.csv', 'w') as csvfile:
+with open('allCountryData2014.csv', 'w', newline='') as csvfile:
     fieldnames = ['Name', 'Total_annual_generation', 'Solar','Coal','Gas','Hydro','Oil','Wind',"Waste",'Biomass','Cogeneration','Geothermal','Nuclear','Other','Petcoke']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
