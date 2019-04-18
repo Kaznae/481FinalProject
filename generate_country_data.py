@@ -1,4 +1,3 @@
-
 import pandas
 import math
 import csv
@@ -6,7 +5,7 @@ import csv
 plants = pandas.read_csv("data/projdata_pp.csv")
 
 valid_countries = []
-#generate countries with at least 100 power plant entries:
+#generate countries with at least x power plant entries:
 country_rep = {}
 for place in plants['country_long']:
     if place not in country_rep:
@@ -20,8 +19,7 @@ for place in plants['country_long']:
 country_info = {}
 
 for index, row in plants.iterrows():
-    #skip low data countries, plants with no comission year, and commission years past 2010
-    #change third condition to set different cutoff years
+    #skip low data countries, and commission years past 2014
     if row['country_long']not in valid_countries or (not math.isnan(row['commissioning_year']) and int(row['commissioning_year']) > 2014):
         continue
     if row['country_long'] not in country_info:
