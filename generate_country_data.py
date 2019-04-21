@@ -10,11 +10,12 @@ country_rep = {}
 for place in plants['country_long']:
     if place not in country_rep:
         country_rep[place] = 1
-    elif country_rep[place] >= 1:
+    elif country_rep[place] >= 1 and place not in valid_countries:
         valid_countries.append(place)
         continue
     else:
         country_rep[place] += 1
+
 
 country_info = {}
 
@@ -41,3 +42,4 @@ with open('allCountryData2014.csv', 'w', newline='') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     writer.writerows(country_info_final)
+
