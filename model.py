@@ -1,19 +1,18 @@
-%matplotlib inline
-
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import statsmodels.api as sm 
+import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from statsmodels.graphics.gofplots import ProbPlot
 
 #import csv data
 data = pd.read_csv('data/data_all_variables_clean.csv')
+#data = pd.read_csv('data/50plant_min.csv')
 
-#define data as dataframe type 
+#define data as dataframe type
 df = pd.DataFrame(data)
-print(df)   
+print(df)
 
 pd.set_option("precision",4)  # only show 4 digits
 corr = df.corr(method="pearson")
@@ -65,9 +64,9 @@ plot_lm_1 = plt.figure(1)
 plot_lm_1.set_figheight(8)
 plot_lm_1.set_figwidth(12)
 
-plot_lm_1.axes[0] = sns.residplot(model_fitted_y, '2014pm25', data=data, 
-                          lowess=True, 
-                          scatter_kws={'alpha': 0.5}, 
+plot_lm_1.axes[0] = sns.residplot(model_fitted_y, '2014pm25', data=data,
+                          lowess=True,
+                          scatter_kws={'alpha': 0.5},
                           line_kws={'color': 'red', 'lw': 1, 'alpha': 0.8})
 
 plot_lm_1.axes[0].set_title('Residuals vs Fitted')
@@ -79,10 +78,10 @@ abs_resid = model_abs_resid.sort_values(ascending=False)
 abs_resid_top_3 = abs_resid[:3]
 
 for i in abs_resid_top_3.index:
-    plot_lm_1.axes[0].annotate(i, 
-                               xy=(model_fitted_y[i], 
+    plot_lm_1.axes[0].annotate(i,
+                               xy=(model_fitted_y[i],
                                    model_residuals[i]));
-    
+
 #QQ plot
 QQ = ProbPlot(model_norm_residuals)
 plot_lm_2 = QQ.qqplot(line='45', alpha=0.5, color='#4C72B0', lw=1)
@@ -99,19 +98,19 @@ abs_norm_resid = np.flip(np.argsort(np.abs(model_norm_residuals)), 0)
 abs_norm_resid_top_3 = abs_norm_resid[:3]
 
 for r, i in enumerate(abs_norm_resid_top_3):
-    plot_lm_2.axes[0].annotate(i, 
+    plot_lm_2.axes[0].annotate(i,
                                xy=(np.flip(QQ.theoretical_quantiles, 0)[r],
                                    model_norm_residuals[i]));
-    
+
 # Cooks Distance
 plot_lm_4 = plt.figure(4)
 plot_lm_4.set_figheight(8)
 plot_lm_4.set_figwidth(12)
 
 plt.scatter(model_leverage, model_norm_residuals, alpha=0.5)
-sns.regplot(model_leverage, model_norm_residuals, 
-            scatter=False, 
-            ci=False, 
+sns.regplot(model_leverage, model_norm_residuals,
+            scatter=False,
+            ci=False,
             lowess=True,
             line_kws={'color': 'red', 'lw': 1, 'alpha': 0.8})
 
@@ -125,10 +124,10 @@ plot_lm_4.axes[0].set_ylabel('Standardized Residuals')
 leverage_top_3 = np.flip(np.argsort(model_cooks), 0)[:3]
 
 for i in leverage_top_3:
-    plot_lm_4.axes[0].annotate(i, 
-                               xy=(model_leverage[i], 
+    plot_lm_4.axes[0].annotate(i,
+                               xy=(model_leverage[i],
                                    model_norm_residuals[i]))
-    
+
 # shenanigans for cook's distance contours
 def graph(formula, x_range, label=None):
     x = x_range
@@ -137,9 +136,9 @@ def graph(formula, x_range, label=None):
 
 p = len(model.params) # number of model parameters
 
-graph(lambda x: np.sqrt((0.5 * p * (1 - x)) / x), 
-      np.linspace(0.001, 0.200, 50), 
+graph(lambda x: np.sqrt((0.5 * p * (1 - x)) / x),
+      np.linspace(0.001, 0.200, 50),
       'Cook\'s distance') # 0.5 line
-graph(lambda x: np.sqrt((1 * p * (1 - x)) / x), 
+graph(lambda x: np.sqrt((1 * p * (1 - x)) / x),
       np.linspace(0.001, 0.200, 50)) # 1 line
 plt.legend(loc='upper right');
