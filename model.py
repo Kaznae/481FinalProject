@@ -13,19 +13,19 @@ data = pd.read_csv('data/data_all_variables_clean.csv')
 
 #define data as dataframe type 
 df = pd.DataFrame(data)
-print(df)   
+#print(df)   
 
-pd.set_option("precision",4)  # only show 4 digits
-corr = df.corr(method="pearson")
-print(corr)
 
 # assign dependent and independent / explanatory variables
 y = '2014pm25'
 x = ['Solar_pct','Coal_pct','Gas_pct','Hydro_pct','Wind_pct','Waste_pct','Biomass_pct','Nuclear_pct','2013pm25','2014co2']
 
+
 # Ordinary least squares regression with constant term
 model = sm.OLS(df[y], sm.add_constant(df[x])).fit()
-model.summary()
+print(model.summary())
+
+print("\n")
 
 #print arrays of important values
 print(model.params)
@@ -82,7 +82,8 @@ for i in abs_resid_top_3.index:
     plot_lm_1.axes[0].annotate(i, 
                                xy=(model_fitted_y[i], 
                                    model_residuals[i]));
-    
+plt.savefig('figures/model1residuals.jpg')
+
 #QQ plot
 QQ = ProbPlot(model_norm_residuals)
 plot_lm_2 = QQ.qqplot(line='45', alpha=0.5, color='#4C72B0', lw=1)
@@ -102,7 +103,7 @@ for r, i in enumerate(abs_norm_resid_top_3):
     plot_lm_2.axes[0].annotate(i, 
                                xy=(np.flip(QQ.theoretical_quantiles, 0)[r],
                                    model_norm_residuals[i]));
-    
+plt.savefig('figures/model1QQplot.jpg')   
 # Cooks Distance
 plot_lm_4 = plt.figure(4)
 plot_lm_4.set_figheight(8)
