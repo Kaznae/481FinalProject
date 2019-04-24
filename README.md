@@ -6,5 +6,5 @@ Abstract: The production of energy has an impact on the environment and our own 
 <br />
 Target Language and Version: Python 3 <br />
 <br />
-Additonal Packages: None. Notable Imports: numpy, pandas, matplotlib.pyplot, seaborn, pandas, csv, and math <br />
+Additonal Packages: None. Notable Imports: numpy, pandas, matplotlib.pyplot, seaborn, pandas, csv, statsmodels, and math <br />
 <br />
